@@ -8,6 +8,20 @@ import textwrap
 
 sent_tokens = set()  # lưu token đã gửi
 
+def format_trade_links(address: str) -> str:
+    return (
+        f'💰 <a href="https://t.me/AveSniperBot?start={address}"><b>AVE</b></a> ｜ '
+        f'<a href="https://gmgn.ai/sol/token/{address}"><b>GMGN.AI (WEB)</b></a> ｜ '
+        f'<a href="https://neo.bullx.io/terminal?chainId=1399811149&address={address}"><b>NEO</b></a> ｜ '
+        f'<a href="https://t.me/GMGN_sol04_bot?start=i_sToNrJHb_c_{address}"><b>GMGN.AI (BOT)</b></a> ｜ '
+        f'<a href="https://t.me/paris_trojanbot?start=r-goodvibes6886-{address}"><b>Trojan</b></a> ｜ '
+        f'<a href="https://photon-sol.tinyastro.io/en/lp/{address}"><b>Photon</b></a> ｜ '
+        f'<a href="https://axiom.trade/t/{address}/@vladk"><b>AXIOM</b></a> ｜ '
+        f'<a href="https://t.me/TradeonNovaBot?start=r-9RPFIUK-{address}"><b>Nova</b></a> ｜ '
+        f'<a href="https://t.me/BloomSolana_bot?start=ref_partner_ca_{address}"><b>Bloom</b></a> ｜ '
+        f'<a href="https://trade.padre.gg/trade/solana/{address}?rk=partner"><b>Padre</b></a>'
+    )
+
 # ---- FORMAT MESSAGE ----
 def format_message(token):
     name = html.escape(token.get('name', ''))
@@ -51,6 +65,8 @@ def format_message(token):
     fish_count = str(token.get('fish_count', 0))
     fish_pct = f"{float(token.get('fish_pct', 0)):,.2f}%"
 
+    trade_links = format_trade_links(address)
+
     text = textwrap.dedent(f"""\
     ⚡ ${name} | ${symbol}
 
@@ -77,6 +93,9 @@ def format_message(token):
     💵 <b>Last 1h:</b> <code>{volume_1h}</code> (B: {volume_buy_1h} / S: {volume_sell_1h}) {transfers1h} tx
 
     🚀 <b>TOTAL Volume 24h:</b> <code>{volume_24h}</code>
+    
+    {trade_links} | ${symbol}
+
     """)
 
     return text
